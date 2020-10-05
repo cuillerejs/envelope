@@ -14,6 +14,7 @@
   "dependencies": {
     "@cuillere/channels": "^0.10.0",
     "@cuillere/core": "^0.10.0",
+    "@types/node": "^14.11.2",
     "ts-node": "^9.0.0",
     "typescript": "^4.0.3"
   }
