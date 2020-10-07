@@ -1,6 +1,6 @@
 # @cuillere/envelope 📨
 
-**@cuillere/envelope** is a rewrite of [tgirier/envelope](https://github.com/tgirier/envelope) in NodeJS, 🙏 thanks to [@tgirier](https://github.com/tgirier) for his original work.
+**@cuillere/envelope** is a rewrite of [@tgirier/envelope](https://github.com/tgirier/envelope) in NodeJS, 🙏 thanks to [@tgirier](https://github.com/tgirier) for his original work.
 
 **Envelope** is a basic chat server using TCP websockets, which broadcasts messages to all connected users.
 
