@@ -30,32 +30,25 @@ class Server {
     yield fork(() => this.listen())
 
     while (true) {
-      const [i, v] = yield select(
-        recv(this.register),
-        recv(this.broadcast),
-        recv(this.unregister),
+      yield select(
+        [recv(this.register), function* (c: Connection) {
+          this.clients.set(c.conn, c.username)
+          this.logger.info('client connection registered')
+          yield send(this.broadcast, `${c.username} joined envelope\n`)
+          yield fork(this.handle(c))
+        }.bind(this)],
+        [recv(this.broadcast), (msg: string) => {
+          for (const conn of this.clients.keys()) {
+            conn.write(msg, err => {
+              if (err) this.logger.error('sending message failed: %s', err)
+            })
+          }
+        }],
+        [recv(this.unregister), (conn: net.Socket) => {
+          this.clients.delete(conn)
+          this.logger.info('client connection unregistered')
+        }],
       )
-
-      switch (i) {
-      case 0: const c = v as Connection
-        this.clients.set(c.conn, c.username)
-        this.logger.info('client connection registered')
-        yield send(this.broadcast, `${c.username} joined envelope\n`)
-        yield fork(this.handle(c))
-        break
-
-      case 1: const msg = v as string
-        for (const conn of this.clients.keys()) {
-          conn.write(msg, err => {
-            if (err) this.logger.error('sending message failed: %s', err)
-          })
-        }
-        break
-
-      case 2: const conn = v as net.Socket
-        this.clients.delete(conn)
-        this.logger.info('client connection unregistered')
-      }
     }
   }
 
@@ -92,19 +85,17 @@ class Server {
       yield send(this.broadcast, `${c.username}: ${msg}\n`)
     }
 
-    const self = this
-
     // FIXME not so good
     yield fork(async function* () {
-      yield defer(send(self.unregister, c.conn))
+      yield defer(send(this.unregister, c.conn))
 
       try {
         await once(c.conn, 'close')
-        self.logger.info('client connection closed')
+        this.logger.info('client connection closed')
       } catch (err) {
-        self.logger.error('receiving message failed: %s', err)
+        this.logger.error('receiving message failed: %s', err)
       }
-    })
+    }.bind(this))
   }
 }
 
