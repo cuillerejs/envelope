@@ -53,49 +53,41 @@ class Server {
   }
 
   async* listen() {
-    for await (const [conn] of on(this.listener, 'connection') as AsyncIterableIterator<[net.Socket]>) {
-      // FIXME this.logger('connection failed %s', err)
+    try {
+      for await (const [conn] of on(this.listener, 'connection') as AsyncIterableIterator<[net.Socket]>) {
+        conn.write(`${this.welcomeMessage}\n`, err => {
+          if (err) this.logger.error('sending message failed: %s', err)
+        })
 
-      conn.write(`${this.welcomeMessage}\n`, err => {
-        if (err) this.logger.error('sending message failed: %s', err)
-      })  
+        const r = readline.createInterface(conn)
+        let [username] = await once(r, 'line') as [string]
+        r.close()
 
-      const r = readline.createInterface(conn)
+        username = username.trimEnd()
 
-      let username: string
+        const c: Connection = {
+          conn,
+          username,
+        }
 
-      [username] = await once(r, 'line')
-      // FIXME this.logger.error('reading username failed: %s', err)
-
-      username = username.trimEnd()
-
-      const c: Connection = {
-        conn,
-        username,
+        yield send(this.register, c)
       }
-
-      yield send(this.register, c)
+    } catch (err) {
+      this.logger.error('connection failed: %s', err)
     }
   }
 
   async* handle(c: Connection) {
+    yield defer(send(this.unregister, c.conn))
+
     const r = readline.createInterface(c.conn)
 
+    // No try-catch block because readline doesn't forward errors...
     for await (const msg of r) {
       yield send(this.broadcast, `${c.username}: ${msg}\n`)
     }
 
-    // FIXME not so good
-    yield fork(async function* () {
-      yield defer(send(this.unregister, c.conn))
-
-      try {
-        await once(c.conn, 'close')
-        this.logger.info('client connection closed')
-      } catch (err) {
-        this.logger.error('receiving message failed: %s', err)
-      }
-    }.bind(this))
+    this.logger.info('client connection closed')
   }
 }
 
