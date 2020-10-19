@@ -6,6 +6,22 @@
 
 **@cuillere/envelope** is an example project of using [@cuillere/channels](https://github.com/cuillerejs/cuillere/tree/master/channels).
 
+## Usage
+
+Run **@cuillere/envelope** using [npx](https://github.com/npm/npx#readme):
+
+```sh
+$ npx @cuillere/envelope
+2020-10-20 12:08:44 info Listening on localhost:8080
+```
+
+Use `HOST` and `PORT` environment variables to configure the address of the server:
+
+```sh
+$ HOST=192.168.1.1 PORT=1234 npx @cuillere/envelope
+2020-10-20 12:24:00 info Listening on 192.168.1.136:1234
+```
+
 ## Author
 
 👤 **Nicolas Lepage**
