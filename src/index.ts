@@ -1,4 +1,4 @@
-#!/usr/bin/env ts-node-script
+#!/usr/bin/env node
 
 import cuillere from '@cuillere/core'
 import { channelsPlugin } from '@cuillere/channels'

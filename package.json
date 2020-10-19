@@ -7,16 +7,20 @@
     "url": "https://github.com/nlepage"
   },
   "license": "Apache-2.0",
+  "engines": { "node": ">=10" },
   "scripts": {
-    "start": "ts-node-script index.ts"
+    "build": "tsc",
+    "start": "ts-node-script src/index.ts"
   },
-  "bin": "./index.ts",
+  "bin": "./dist/index.ts",
   "dependencies": {
     "@cuillere/channels": "^0.10.2",
     "@cuillere/core": "^0.10.0",
+    "winston": "^3.3.3"
+  },
+  "devDependencies": {
     "@types/node": "^14.11.10",
     "ts-node": "^9.0.0",
-    "typescript": "^4.0.3",
-    "winston": "^3.3.3"
+    "typescript": "^4.0.3"
   }
 }
