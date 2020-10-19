@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@cuillere/channels@^0.10.0":
-  version "0.10.1"
-  resolved "https://registry.yarnpkg.com/@cuillere/channels/-/channels-0.10.1.tgz#d83987459af70d00e1f58eab2d6472fedb7c476f"
-  integrity sha512-OShck1WlKyVcNnFxt1IR5Nw0+D17AWMkB19yKXlV7dctzUI200NhEpnER7ArBIqJn8TJ4NakENB3FgD31vYLBQ==
+"@cuillere/channels@^0.10.2":
+  version "0.10.2"
+  resolved "https://registry.yarnpkg.com/@cuillere/channels/-/channels-0.10.2.tgz#bdf3703639842fec53440a92232030c7b9336b26"
+  integrity sha512-Kuw88dJDRBvpevn0/LY1jJVUT8eLnasrrEFvel4toPNF4lO2uMLLh2K/vP6MfqEwptJ0karKkJK34A7rpUFFSQ==
 
 "@cuillere/core@^0.10.0":
   version "0.10.1"
@@ -21,10 +21,10 @@
     enabled "2.0.x"
     kuler "^2.0.0"
 
-"@types/node@^14.11.2":
-  version "14.11.5"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-14.11.5.tgz#fecad41c041cae7f2404ad4b2d0742fdb628b305"
-  integrity sha512-jVFzDV6NTbrLMxm4xDSIW/gKnk8rQLF9wAzLWIOg+5nU6ACrIMndeBdXci0FGtqJbP9tQvm6V39eshc96TO2wQ==
+"@types/node@^14.11.10":
+  version "14.11.10"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-14.11.10.tgz#8c102aba13bf5253f35146affbf8b26275069bef"
+  integrity sha512-yV1nWZPlMFpoXyoknm4S56y2nlTAuFYaJuQtYRAOU7xA/FJ9RY0Xm7QOkaYMMmr8ESdHIuUb6oQgR/0+2NqlyA==
 
 arg@^4.1.0:
   version "4.1.3"
