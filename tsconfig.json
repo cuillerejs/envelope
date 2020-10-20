@@ -1,10 +1,8 @@
 {
+  "extends": "@tsconfig/node12/tsconfig.json",
   "compilerOptions": {
-    "esModuleInterop": true,
-    "lib": ["ES2018"],
-    "module": "CommonJS",
     "outDir": "dist",
     "rootDir": "src",
-    "target": "ES2018"
+    "strict": false
   }
 }
