@@ -1,10 +1,11 @@
 import * as net from 'net'
-import * as readline from 'readline'
-import { on, once } from 'events'
+import { once } from 'events'
 
 import { defer, fork } from '@cuillere/core'
 import { chan, ChanKey, recv, select, send } from '@cuillere/channels'
 import * as winston from 'winston'
+
+import { BufferedReader } from './buffered-reader'
 
 class Server {
   
@@ -53,41 +54,63 @@ class Server {
   }
 
   async* listen() {
-    try {
-      for await (const [conn] of on(this.listener, 'connection') as AsyncIterableIterator<[net.Socket]>) {
-        conn.write(`${this.welcomeMessage}\n`, err => {
-          if (err) this.logger.error('sending message failed: %s', err)
-        })
+    while (true) {
+      let conn: net.Socket
 
-        const r = readline.createInterface(conn)
-        let [username] = await once(r, 'line') as [string]
-        r.close()
-
-        username = username.trimEnd()
-
-        const c: Connection = {
-          conn,
-          username,
-        }
-
-        yield send(this.register, c)
+      try {
+        [conn] = await once(this.listener, 'connection')
+      } catch (err) {
+        this.logger.error('connection failed: %s', err.message)
+        continue
       }
-    } catch (err) {
-      this.logger.error('connection failed: %s', err)
+
+      try {
+        await new Promise((resolve, reject) => conn.write(`${this.welcomeMessage}\n`, err => {
+          if (err) reject(err)
+          else resolve()
+        }))
+      } catch (err) {
+        this.logger.error('sending message failed: %s', err.message)
+        continue
+      }
+
+      let username: string
+      try {
+        const br = new BufferedReader(conn)
+        username = await br.readLine()
+      } catch (err) {
+        this.logger.error('reading username failed: %s', err.message)
+        continue
+      }
+
+      const c: Connection = {
+        conn,
+        username,
+      }
+
+      yield send(this.register, c)
     }
   }
 
   async* handle(c: Connection) {
     yield defer(send(this.unregister, c.conn))
 
-    const r = readline.createInterface(c.conn)
+    const br = new BufferedReader(c.conn)
+    let msg: string
 
-    // No try-catch block because readline doesn't forward errors...
-    for await (const msg of r) {
+    while (true) {
+      try {
+        msg = await br.readLine()
+      } catch (err) {
+        if (err.message === 'EOF') {
+          this.logger.info('client connection closed')
+        }
+        this.logger.error('receiving message failed: %s', err.message)
+        return
+      }
+
       yield send(this.broadcast, `${c.username}: ${msg}\n`)
     }
-
-    this.logger.info('client connection closed')
   }
 }
 
