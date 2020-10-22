@@ -1,6 +1,6 @@
 {
   "name": "@cuillere/envelope",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "repository": "https://github.com/cuillerejs/envelope",
   "author": {
     "name": "Nicolas Lepage",
@@ -11,8 +11,11 @@
     "node": ">=12"
   },
   "scripts": {
+    "clean": "rm -rf dist",
+    "prebuild": "yarn clean",
     "build": "tsc",
-    "start": "ts-node-script src/index.ts"
+    "start": "ts-node-script src/index.ts",
+    "prepublish": "yarn build"
   },
   "bin": "./dist/index.js",
   "files": [
@@ -21,8 +24,8 @@
     "README.md"
   ],
   "dependencies": {
-    "@cuillere/channels": "^0.10.2",
-    "@cuillere/core": "^0.10.0",
+    "@cuillere/channels": "^0.12.0-alpha.0",
+    "@cuillere/core": "^0.12.0-alpha.0",
     "winston": "^3.3.3"
   },
   "devDependencies": {

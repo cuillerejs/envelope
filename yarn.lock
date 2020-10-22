@@ -2,15 +2,15 @@
 # yarn lockfile v1
 
 
-"@cuillere/channels@^0.10.2":
-  version "0.10.2"
-  resolved "https://registry.yarnpkg.com/@cuillere/channels/-/channels-0.10.2.tgz#bdf3703639842fec53440a92232030c7b9336b26"
-  integrity sha512-Kuw88dJDRBvpevn0/LY1jJVUT8eLnasrrEFvel4toPNF4lO2uMLLh2K/vP6MfqEwptJ0karKkJK34A7rpUFFSQ==
+"@cuillere/channels@^0.12.0-alpha.0":
+  version "0.12.0-alpha.0"
+  resolved "https://registry.yarnpkg.com/@cuillere/channels/-/channels-0.12.0-alpha.0.tgz#b816556e8f84bd6962404b3ab3d146c7cf72d2ae"
+  integrity sha512-ZGdE06LObcoQ/4G9Ns/4lwNyznaA6xQ8sJRvyxK1azUJ9aHBenYY/2XO5005W7a1HIlJbCLM8JxJhznfO+PyVA==
 
-"@cuillere/core@^0.10.0":
-  version "0.10.1"
-  resolved "https://registry.yarnpkg.com/@cuillere/core/-/core-0.10.1.tgz#913a8a242a779bbb42a588ff9b36d6d2ff48bfea"
-  integrity sha512-jTmHSEqtw95szxEvpQgO5XuQlEc0iY87A1Qbm4TIm5ligKmW+3eQMq55aXv2FuNxlYnMdcCA8NaqVvaLmiwRAg==
+"@cuillere/core@^0.12.0-alpha.0":
+  version "0.12.0-alpha.0"
+  resolved "https://registry.yarnpkg.com/@cuillere/core/-/core-0.12.0-alpha.0.tgz#6aa92183250fa511df3da81c2256b4e2a9e2ec6a"
+  integrity sha512-lVBJc1CQnfR8rS4AcA+Ue78uQuxDPVn3cUFt2DIQ2P5GalRS7EqiiOJtuHcU/mutF7aZ9bzZyKVBDIhIWKyJUw==
 
 "@dabh/diagnostics@^2.0.2":
   version "2.0.2"
@@ -27,9 +27,9 @@
   integrity sha512-dgasobK/Y0wVMswcipr3k0HpevxFJLijN03A8mYfEPvWvOs14v0ZlYTR4kIgMx8g4+fTyTFv8/jLCIfRqLDJ4A==
 
 "@types/node@^14.11.10":
-  version "14.11.10"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-14.11.10.tgz#8c102aba13bf5253f35146affbf8b26275069bef"
-  integrity sha512-yV1nWZPlMFpoXyoknm4S56y2nlTAuFYaJuQtYRAOU7xA/FJ9RY0Xm7QOkaYMMmr8ESdHIuUb6oQgR/0+2NqlyA==
+  version "14.14.2"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-14.14.2.tgz#d25295f9e4ca5989a2c610754dc02a9721235eeb"
+  integrity sha512-jeYJU2kl7hL9U5xuI/BhKPZ4vqGM/OmK6whiFAXVhlstzZhVamWhDSmHyGLIp+RVyuF9/d0dqr2P85aFj4BvJg==
 
 arg@^4.1.0:
   version "4.1.3"
